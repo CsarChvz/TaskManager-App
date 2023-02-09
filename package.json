@@ -1,12 +1,30 @@
 {
   "name": "taskmanager-app",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CsarChvz/TaskManager-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CsarChvz/TaskManager-App/issues"
+  },
+  "homepage": "https://github.com/CsarChvz/TaskManager-App#readme",
+  "description": "",
+  "devDependencies": {
+    "@prisma/client": "^4.10.0",
+    "@types/node": "^18.13.0",
+    "prisma": "^4.10.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "mongodb": "^3.1.10"
+  }
 }

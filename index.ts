@@ -16,7 +16,6 @@ async function main() {
       description: "Creating some Java APIs",
     },
   });
-
   await prisma.tasks.create({
     data: {
       title: "Testing Out Flask APIs",

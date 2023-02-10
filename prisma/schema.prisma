@@ -13,7 +13,7 @@ datasource db {
 
 model tasks {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
   description String
+  completed Boolean
   createdAt DateTime  @default(now())
 }

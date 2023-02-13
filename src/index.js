@@ -2,9 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { PrismaClient } = require("@prisma/client");
 
-// Object id para generar id's de mongo
-let ObjectID = require("bson-objectid");
-
 const prisma = new PrismaClient();
 const app = express();
 const port = process.env.port || 3000;

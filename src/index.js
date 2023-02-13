@@ -93,7 +93,17 @@ app.get("/tasks/:id", async (req, res) => {
 
 // @@@ PATCH - End points
 app.patch("/users/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["name", "email", "password"];
+  const isValidOperation = updates.every((update) => {
+    return allowedUpdates.includes(update);
+  });
+
   let _id = req.params.id.toString();
+
+  if (!isValidOperation) {
+    return res.send(400).send({ error: "Invalid updates!" });
+  }
   try {
     let usersData = await prisma.user.update({
       where: {

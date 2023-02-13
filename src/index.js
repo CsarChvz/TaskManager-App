@@ -8,8 +8,9 @@ const port = process.env.port || 3000;
 
 // Setamos los valores para el servidor para que nos devuelva un JSON
 app.set(express.json());
-app.post("/users", (req, res) => {
-  console.log("Body", req.body);
+
+app.post("/users", bodyParser.json(), (req, res) => {
+  console.log(req.body);
   res.send("Andres");
 });
 

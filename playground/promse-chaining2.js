@@ -2,17 +2,18 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-prisma.user
-  .update({
+prisma.tasks
+  .delete({
     where: {
-      id: "63ea9dc4251cecdb1c5f8ad2",
-    },
-    data: {
-      email: "cesarconfigs@gmail.com",
+      id: "",
     },
   })
-  .then((user) => {
-    return prisma.user.count();
+  .tnen((task) => {
+    return prisma.tasks.findMany({
+      where: {
+        completed: false,
+      },
+    });
   })
   .then((c) => {
     console.log(c);

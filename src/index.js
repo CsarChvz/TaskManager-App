@@ -91,6 +91,24 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
+// @@@ PATCH - End points
+app.patch("/users/:id", async (req, res) => {
+  let _id = req.params.id.toString();
+  try {
+    let usersData = await prisma.user.update({
+      where: {
+        id: _id,
+      },
+      data: {
+        ...req.body,
+      },
+    });
+    res.status(200).json(usersData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log("Port listen");
 });

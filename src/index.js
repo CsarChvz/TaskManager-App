@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { PrismaClient } = require("@prisma/client");
 
+// Object id para generar id's de mongo
+let ObjectID = require("bson-objectid");
+
 const prisma = new PrismaClient();
 const app = express();
 const port = process.env.port || 3000;
@@ -40,6 +43,56 @@ app.post("/tasks", async (req, res) => {
 });
 
 //    @@@ GET - End points
+
+app.get("/users", async (req, res) => {
+  try {
+    let usersData = await prisma.user.findFirst();
+    res.status(200).json(usersData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/users/:id", async (req, res) => {
+  // Para conseguir el id de la ruta, tenemos que solicitar el parametro de la ruta
+  // Esto se hace con el metodo params de express
+  // ej: req.params.id
+
+  let _id = req.params.id.toString();
+  try {
+    let usersData = await prisma.user.findUniqueOrThrow({
+      where: {
+        id: _id,
+      },
+    });
+    res.status(200).json(usersData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/tasks", async (req, res) => {
+  try {
+    let tasksData = await prisma.tasks.findMany();
+    res.status(200).json(tasksData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get("/tasks/:id", async (req, res) => {
+  let _id = req.params.id.toString();
+  try {
+    let tasksData = await prisma.tasks.findUniqueOrThrow({
+      where: {
+        id: _id,
+      },
+    });
+    res.status(200).json(tasksData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.listen(port, () => {
   console.log("Port listen");

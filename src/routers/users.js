@@ -4,12 +4,15 @@ const user = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const bcrypt = require("bcryptjs");
 //    @@@ POST - End points
 user.post("/users", async (req, res) => {
   try {
+    let password = await bcrypt.hash(req.body.password, 8);
     let datos = await prisma.user.create({
       data: {
         ...req.body,
+        password,
       },
     });
     res.status(201).json(datos);

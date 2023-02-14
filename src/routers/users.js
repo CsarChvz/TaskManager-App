@@ -7,6 +7,9 @@ const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
 
+// Middleware
+const auth = require("../middleware/auth");
+
 //    @@@ POST - End points
 user.post("/users", async (req, res) => {
   try {
@@ -19,24 +22,20 @@ user.post("/users", async (req, res) => {
     });
     let token = {
       _id: datos.id.toString(),
-      tokens: [
+
+      token: jwt.sign(
         {
           _id: datos.id.toString(),
-          token: jwt.sign(
-            {
-              _id: datos.id.toString(),
-            },
-            "thisismynewcourse"
-          ),
         },
-      ],
+        "thisismynewcourse"
+      ),
     };
     datos = await prisma.user.update({
       where: {
         id: datos.id,
       },
       data: {
-        tokens: [token],
+        tokens: [{ ...token }],
       },
     });
     res.status(201).json({ datos, token });
@@ -47,7 +46,7 @@ user.post("/users", async (req, res) => {
 
 //    @@@ GET - End points
 
-user.get("/users", async (req, res) => {
+user.get("/users", auth, async (req, res) => {
   try {
     let usersData = await prisma.user.findFirst();
     res.status(200).json(usersData);

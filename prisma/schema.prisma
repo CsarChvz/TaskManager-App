@@ -22,4 +22,6 @@ model User {
   name String
   email String @unique
   password String
+  age Int
+  tokens Json[]
 }

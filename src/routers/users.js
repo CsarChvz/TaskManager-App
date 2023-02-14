@@ -1,10 +1,12 @@
 const express = require("express");
 const user = express.Router();
-
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const bcrypt = require("bcryptjs");
+
+const jwt = require("jsonwebtoken");
+
 //    @@@ POST - End points
 user.post("/users", async (req, res) => {
   try {
@@ -15,7 +17,29 @@ user.post("/users", async (req, res) => {
         password,
       },
     });
-    res.status(201).json(datos);
+    let token = {
+      _id: datos.id.toString(),
+      tokens: [
+        {
+          _id: datos.id.toString(),
+          token: jwt.sign(
+            {
+              _id: datos.id.toString(),
+            },
+            "thisismynewcourse"
+          ),
+        },
+      ],
+    };
+    datos = await prisma.user.update({
+      where: {
+        id: datos.id,
+      },
+      data: {
+        tokens: [token],
+      },
+    });
+    res.status(201).json({ datos, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -73,7 +97,7 @@ user.patch("/users/:id", async (req, res) => {
         ...req.body,
       },
     });
-    res.status(200).json(usersData);
+    res.status(200).json({ usersData });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -125,7 +149,26 @@ user.post("/users/login", async (req, res) => {
       if (!isMatch) {
         throw new Error("Unable to login");
       }
-      res.status(200).json(user);
+      const token = jwt.sign(
+        {
+          _id: user.id.toString(),
+        },
+        "thisismynewcourse"
+      );
+      let tokenUser = {
+        _id: user.id.toString(),
+        token: token,
+      };
+      user = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          tokens: [...user.tokens, tokenUser],
+        },
+      });
+
+      res.status(200).json({ user, token });
     } else {
       throw new Error("Email not found");
     }
@@ -133,7 +176,6 @@ user.post("/users/login", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 async function checkExist(email) {
   let user = await prisma.user.findUnique({
     where: {

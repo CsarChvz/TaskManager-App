@@ -115,4 +115,31 @@ user.delete("/tasks/id", async (req, res) => {
   }
 });
 
+// @@@@ login user
+
+user.post("/users/login", async (req, res) => {
+  try {
+    let user = await checkExist(req.body.email);
+    if (user) {
+      let isMatch = await bcrypt.compare(req.body.password, user.password);
+      if (!isMatch) {
+        throw new Error("Unable to login");
+      }
+      res.status(200).json(user);
+    } else {
+      throw new Error("Email not found");
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+async function checkExist(email) {
+  let user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  return user;
+}
 module.exports = user;

@@ -8,9 +8,10 @@ const auth = async (req, res, next) => {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoed = jwt.verify(token, "thisismynewcourse");
     console.log(decoed);
-    const user = await prisma.user.findFirst({
+    let id = decoed._id.toString();
+    const user = await prisma.user.findFirstOrThrow({
       where: {
-        id: decoed._id,
+        id: id,
       },
     });
     // Se tiene que checar que el token que se esta mandando sea el mismo que se tiene en la base de datos o uno de los que este
@@ -19,9 +20,10 @@ const auth = async (req, res, next) => {
     if (!user) {
       throw new Error();
     }
-    req.user = user;
+
     user.tokens.forEach((element) => {
       if (element.token === token) {
+        req.user = user;
         next();
       }
     });

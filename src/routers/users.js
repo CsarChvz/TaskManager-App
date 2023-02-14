@@ -44,6 +44,10 @@ user.post("/users", async (req, res) => {
   }
 });
 
+user.get("/users/me", auth, async (req, res) => {
+  console.log(req);
+  res.send("asd");
+});
 //    @@@ GET - End points
 
 user.get("/users", auth, async (req, res) => {
@@ -75,7 +79,7 @@ user.get("/users/:id", async (req, res) => {
 
 // @@@ PATCH - End points
 
-user.patch("/users/:id", async (req, res) => {
+user.patch("/users/id", async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password"];
   const isValidOperation = updates.every((update) => {
@@ -183,4 +187,5 @@ async function checkExist(email) {
   });
   return user;
 }
+
 module.exports = user;

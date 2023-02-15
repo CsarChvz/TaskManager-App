@@ -24,6 +24,7 @@ const auth = async (req, res, next) => {
     user.tokens.forEach((element) => {
       if (element.token === token) {
         req.user = user;
+        req.token = token;
         next();
       }
     });

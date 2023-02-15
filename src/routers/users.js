@@ -44,33 +44,99 @@ user.post("/users", async (req, res) => {
   }
 });
 
-user.get("/users/me", auth, async (req, res) => {
-  console.log(req);
-  res.send("asd");
-});
-//    @@@ GET - End points
-
-user.get("/users", auth, async (req, res) => {
+user.post("/users/logout", auth, async (req, res) => {
   try {
-    let usersData = await prisma.user.findFirst();
-    res.status(200).json(usersData);
+    let tokensFiltrados = req.user.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+
+    let user = await prisma.user.update({
+      where: {
+        id: req.user.id.toString(),
+      },
+      data: {
+        tokens: [...tokensFiltrados],
+      },
+    });
+    res.status(200).json({ user, token: undefined });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-user.get("/users/:id", async (req, res) => {
-  // Para conseguir el id de la ruta, tenemos que solicitar el parametro de la ruta
-  // Esto se hace con el metodo params de express
-  // ej: req.params.id
-
-  let _id = req.params.id.toString();
+user.post("/users/logoutAll", auth, async (req, res) => {
   try {
-    let usersData = await prisma.user.findUniqueOrThrow({
+    let user = await prisma.user.update({
       where: {
-        id: _id,
+        id: req.user.id.toString(),
+      },
+      data: {
+        tokens: [],
       },
     });
+    res.status(200).json({ user, token: undefined });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// @@@@ login user
+
+user.post("/users/login", async (req, res) => {
+  try {
+    let user = await checkExist(req.body.email);
+    if (user) {
+      let isMatch = await bcrypt.compare(req.body.password, user.password);
+      if (!isMatch) {
+        throw new Error("Unable to login");
+      }
+      const token = jwt.sign(
+        {
+          _id: user.id.toString(),
+        },
+        "thisismynewcourse"
+      );
+      let tokenUser = {
+        _id: user.id.toString(),
+        token: token,
+      };
+      user = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          tokens: [...user.tokens, tokenUser],
+        },
+      });
+
+      res.status(200).json({ user, token });
+    } else {
+      throw new Error("Email not found");
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+async function checkExist(email) {
+  let user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+  return user;
+}
+
+user.get("/users/me", auth, async (req, res) => {
+  console.log(req);
+  res.send("asd");
+});
+
+//    @@@ GET - End points
+
+user.get("/users", auth, async (req, res) => {
+  try {
+    let usersData = await prisma.user.findFirst();
     res.status(200).json(usersData);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -142,50 +208,22 @@ user.delete("/tasks/id", async (req, res) => {
   }
 });
 
-// @@@@ login user
+user.get("/users/:id", async (req, res) => {
+  // Para conseguir el id de la ruta, tenemos que solicitar el parametro de la ruta
+  // Esto se hace con el metodo params de express
+  // ej: req.params.id
 
-user.post("/users/login", async (req, res) => {
+  let _id = req.params.id.toString();
   try {
-    let user = await checkExist(req.body.email);
-    if (user) {
-      let isMatch = await bcrypt.compare(req.body.password, user.password);
-      if (!isMatch) {
-        throw new Error("Unable to login");
-      }
-      const token = jwt.sign(
-        {
-          _id: user.id.toString(),
-        },
-        "thisismynewcourse"
-      );
-      let tokenUser = {
-        _id: user.id.toString(),
-        token: token,
-      };
-      user = await prisma.user.update({
-        where: {
-          id: user.id,
-        },
-        data: {
-          tokens: [...user.tokens, tokenUser],
-        },
-      });
-
-      res.status(200).json({ user, token });
-    } else {
-      throw new Error("Email not found");
-    }
+    let usersData = await prisma.user.findUniqueOrThrow({
+      where: {
+        id: _id,
+      },
+    });
+    res.status(200).json(usersData);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
-async function checkExist(email) {
-  let user = await prisma.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
-  return user;
-}
 
 module.exports = user;

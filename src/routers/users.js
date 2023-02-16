@@ -175,13 +175,16 @@ user.patch("/users/me", auth, async (req, res) => {
 
 // @@@ DELETE - End points
 user.delete("/users/me", auth, async (req, res) => {
+  let _id = req.user.id.toString();
   try {
     let usersData = await prisma.user.delete({
       where: {
-        id: req.user.id.toString(),
+        id: _id,
       },
     });
-    res.status(200).json({ usersData });
+    res.status(200).json({
+      message: "User deleted",
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

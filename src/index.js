@@ -23,3 +23,39 @@ app.use(useUserRouter);
 app.listen(port, () => {
   console.log("Port listen");
 });
+
+async function main() {
+  await prisma.$connect();
+  // await prisma.tasks.create({
+  //   data: {
+  //     description: "Alle Alle vais",
+  //     completed: true,
+  //   },
+  // });
+  const id = "63ee64401e480c469972e6f8";
+  // Get all taskks from the id and the user data from the id
+
+  // const task = await prisma.tasks.findMany({
+  //   where: {
+  //     ownerId: id,
+  //   },
+  //   include: {
+  //     owner: true,
+  //   },
+  // });
+
+  // // console.log(task);
+  // const user = await prisma.user.findUnique({
+  //   where: {
+  //     id: id,
+  //   },
+  //   include: {
+  //     tasks: true,
+  //   },
+  // });
+  // console.log(user);
+}
+
+main()
+  .catch(console.error)
+  .finally(() => prisma.$disconnect());

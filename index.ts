@@ -10,13 +10,13 @@ async function main() {
   //     completed: true,
   //   },
   // });
-  await prisma.user.create({
-    data: {
-      email: "si@gmail.com",
-      name: "Si",
-      password: "pendejada",
+  const id = "63ee64401e480c469972e6f8";
+  const task = await prisma.tasks.findUnique({
+    where: {
+      id,
     },
   });
+  console.log(task);
 }
 
 main()

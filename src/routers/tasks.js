@@ -5,19 +5,23 @@ const bcrypt = require("bcryptjs");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-tasks.get("/test", async (req, res) => {
-  console.log("test");
-  res.send("test");
-});
+const auth = require("../middleware/auth");
 
-tasks.post("/tasks", async (req, res) => {
+// __ Creación de tarea __
+
+tasks.post("/tasks", auth, async (req, res) => {
   try {
-    let datos = await prisma.tasks.create({
+    let task = await prisma.tasks.create({
       data: {
         ...req.body,
+        owner: {
+          connect: {
+            id: req.user.id.toString(),
+          },
+        },
       },
     });
-    res.status(201).json(datos);
+    res.status(201).json(task);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

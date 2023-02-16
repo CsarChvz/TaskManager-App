@@ -28,12 +28,23 @@ tasks.post("/tasks", auth, async (req, res) => {
 });
 
 tasks.get("/tasks", auth, async (req, res) => {
+  let completed;
+  if (req.query.completed) {
+    if (req.query.completed === "true") {
+      completed = true;
+    } else {
+      completed = false;
+    }
+  }
   try {
     let tasksData = await prisma.tasks.findMany({
       where: {
         owner: {
           id: req.user.id.toString(),
         },
+
+        // Si se manda el query de completed, se filtra por el valor de completed
+        completed: completed,
       },
       include: {
         owner: true,

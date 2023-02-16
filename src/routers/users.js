@@ -85,6 +85,7 @@ user.post("/users/logoutAll", auth, async (req, res) => {
 user.post("/users/login", async (req, res) => {
   try {
     let user = await checkExist(req.body.email);
+    console.log(user);
     if (user) {
       let isMatch = await bcrypt.compare(req.body.password, user.password);
       if (!isMatch) {
@@ -145,14 +146,14 @@ user.get("/users", auth, async (req, res) => {
 
 // @@@ PATCH - End points
 
-user.patch("/users/id", async (req, res) => {
+user.patch("/users/me", auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["name", "email", "password"];
   const isValidOperation = updates.every((update) => {
     return allowedUpdates.includes(update);
   });
 
-  let _id = req.params.id.toString();
+  let _id = req.user.id.toString();
 
   if (!isValidOperation) {
     return res.send(400).send({ error: "Invalid updates!" });
@@ -173,54 +174,14 @@ user.patch("/users/id", async (req, res) => {
 });
 
 // @@@ DELETE - End points
-user.delete("/users/id", async (req, res) => {
+user.delete("/users/me", auth, async (req, res) => {
   try {
-    let _id = req.params.id.toString();
-    let userDeleted = await prisma.user.delete({
+    let usersData = await prisma.user.delete({
       where: {
-        id: _id,
+        id: req.user.id.toString(),
       },
     });
-
-    if (!userDeleted) {
-      return res.status(404).send({ error: "User not found" });
-    }
-    return res.status(200).send(userDeleted);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
-});
-user.delete("/tasks/id", async (req, res) => {
-  try {
-    let _id = req.params.id.toString();
-    let userDeleted = await prisma.user.delete({
-      where: {
-        id: _id,
-      },
-    });
-
-    if (!userDeleted) {
-      return res.status(404).send({ error: "User not found" });
-    }
-    return res.status(200).send(userDeleted);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
-});
-
-user.get("/users/:id", async (req, res) => {
-  // Para conseguir el id de la ruta, tenemos que solicitar el parametro de la ruta
-  // Esto se hace con el metodo params de express
-  // ej: req.params.id
-
-  let _id = req.params.id.toString();
-  try {
-    let usersData = await prisma.user.findUniqueOrThrow({
-      where: {
-        id: _id,
-      },
-    });
-    res.status(200).json(usersData);
+    res.status(200).json({ usersData });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

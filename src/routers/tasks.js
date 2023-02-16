@@ -81,4 +81,22 @@ tasks.patch("/tasks/:id", async (req, res) => {
     return res.status(400).send({ error: Error(error) });
   }
 });
+
+tasks.delete("/tasks/id", async (req, res) => {
+  try {
+    let _id = req.params.id.toString();
+    let userDeleted = await prisma.user.delete({
+      where: {
+        id: _id,
+      },
+    });
+
+    if (!userDeleted) {
+      return res.status(404).send({ error: "User not found" });
+    }
+    return res.status(200).send(userDeleted);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 module.exports = tasks;

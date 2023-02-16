@@ -36,8 +36,21 @@ tasks.get("/tasks", auth, async (req, res) => {
       completed = false;
     }
   }
+
+  let limit = 10;
+  let skip = 0;
+
+  if (req.query.limit) {
+    limit = parseInt(req.query.limit);
+  }
+
+  if (req.query.skip) {
+    skip = parseInt(req.query.skip);
+  }
   try {
     let tasksData = await prisma.tasks.findMany({
+      take: limit,
+      skip: skip,
       where: {
         owner: {
           id: req.user.id.toString(),

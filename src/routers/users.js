@@ -10,6 +10,26 @@ const jwt = require("jsonwebtoken");
 // Middleware
 const auth = require("../middleware/auth");
 
+// Upload Files
+const multer = require("multer");
+
+const upload = multer({
+  dest: "avatars",
+  limits: {
+    fileSize: 1000000,
+  },
+  // Filtro para los archivos que se van a subir
+  fileFilter(req, file, cb) {
+    // El archivo no tiene que ser diferente a jpg, jpeg o png
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      // Si es que es diferente se manda un error en el call back
+      return cb(new Error("Please upload an image"));
+    }
+    // El call back devuelve un undefined y un booleano
+    cb(undefined, true);
+  },
+});
+
 //    @@@ POST - End points
 user.post("/users", async (req, res) => {
   try {
@@ -189,5 +209,27 @@ user.delete("/users/me", auth, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Upload avatar
+
+// --Parametros del post
+// -- 1. Ruta
+// -- 2. Middleware de autenticación
+// -- 3. Middleware de subida de archivos
+// -- 4. Callback que se ejecuta cuando se sube el archivo
+
+user.post(
+  "/users/me/avatar",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    res.send();
+  },
+  (error, req, res, next) => {
+    res.status(400).json({ error: error.message });
+  }
+);
+
+// Lo que se hace es colocar un callback como middleware después de que se ejecute la función de subida de archivos
 
 module.exports = user;

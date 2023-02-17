@@ -18,6 +18,7 @@ model User {
   age       Int
   tokens    Json[]
   tasks     Tasks[]
+  buffer    Bytes?
   createdAt DateTime @default(now())
 
   @@unique([email])

@@ -30,6 +30,7 @@ const upload = multer({
   },
 });
 
+const fornSet = require("../middleware/fornSet");
 //    @@@ POST - End points
 user.post("/users", async (req, res) => {
   try {
@@ -223,20 +224,9 @@ user.post(
   auth,
   upload.single("avatar"),
   async (req, res) => {
-    let _id = req.user.id.toString();
-    // Obtenemos el buffer del archivo que se subió
-
-    let buffer = req.file;
-
-    let user = await prisma.user.update({
-      where: {
-        id: _id,
-      },
-      data: {
-        avatar: buffer,
-      },
-    });
-    res.status(200).json({ user });
+    var buf = req.file.buffer.toString("base64");
+    console.log(buf);
+    res.send();
   },
   (error, req, res, next) => {
     res.status(400).json({ error: error.message });

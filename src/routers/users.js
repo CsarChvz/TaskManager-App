@@ -223,7 +223,20 @@ user.post(
   auth,
   upload.single("avatar"),
   async (req, res) => {
-    res.send();
+    let _id = req.user.id.toString();
+    // Obtenemos el buffer del archivo que se subió
+
+    let buffer = req.file;
+
+    let user = await prisma.user.update({
+      where: {
+        id: _id,
+      },
+      data: {
+        avatar: buffer,
+      },
+    });
+    res.status(200).json({ user });
   },
   (error, req, res, next) => {
     res.status(400).json({ error: error.message });

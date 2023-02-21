@@ -1,1 +1,67 @@
-{"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/index.ts":[516,1676568338302.3364,"cea263c8503a11a5e9b2ae86ea22d4cd400dd2ff7db5a45fa768c8235688a850"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/playground/promise-chaining.js":[399,1676322199294.5073,"800262d910178ab6fda48d1759476a11745b37d7c208053a9fe55139c28b08fd"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/playground/promse-chaining2.js":[380,1676323076438.8347,"576e131016c86040a80f67d84ad04940fdb075c1a0dee24c44af816d17ec947a"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/index.js":[1062,1676994842703.0947,"4a413233427073791ed9b60bd5526a3b84f5cfc58148cd30bd5d78e0080c3eaa"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/emails/account.js":[512,1676994910932.295,"5335a89e0c50e30eb0377bb383f3fcb933bf26acfabba4481e60dc423d6061b1"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/middleware/auth.js":[1015,1676498110646.458,"f569b9d7653f9592754325a5ebd863c1a38fc66c4b500654f8e647c50c5b5a63"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/middleware/fornSet.js":[252,1676667050175.041,"736f5ef9d190428cba9890007fccdb138b4da15b0e8b12c9012134480eb6ed46"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/routers/tasks.js":[4381,1676586579018.5684,"0211b75a97df077892315ae8a784a1c92dbb210f1d0bba4f52ef952f1b722991"],"c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/routers/users.js":[5701,1676667212847.5764,"b94faf44c658a81d426d9d7f8a133b453e02a5ccd0d317eb67ccaad3e104308f"],"c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\middleware\\auth.js":[1018,1676994975671.2644,"546a7917b68f8830d0323734f0f960b604feeb34862045b3592017e763bf815e"],"c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\routers\\users.js":[5685,1676995176918.7822,"e2896392b3a2f7ee9e7b65f0a43fa8b9dc1d8c7a0398440f88a2f073eca290b6"],"c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\emails\\account.js":[539,1676995755258.0645,"7f7a2c150ae6ac5ce9dad1802168fd1346cc9cd48657a31798b88ede4a9b37da"],"c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\index.js":[1091,1676996475803.409,"07aa05729911e27d1fc66e5d950bbc46cd6192c6a9835c021899842de4d685b4"]}
+{
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/index.ts": [
+    516,
+    1676568338302.3364,
+    "cea263c8503a11a5e9b2ae86ea22d4cd400dd2ff7db5a45fa768c8235688a850"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/playground/promise-chaining.js": [
+    399,
+    1676322199294.5073,
+    "800262d910178ab6fda48d1759476a11745b37d7c208053a9fe55139c28b08fd"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/playground/promse-chaining2.js": [
+    380,
+    1676323076438.8347,
+    "576e131016c86040a80f67d84ad04940fdb075c1a0dee24c44af816d17ec947a"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/index.js": [
+    1062,
+    1676994842703.0947,
+    "4a413233427073791ed9b60bd5526a3b84f5cfc58148cd30bd5d78e0080c3eaa"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/emails/account.js": [
+    512,
+    1676994910932.295,
+    "5335a89e0c50e30eb0377bb383f3fcb933bf26acfabba4481e60dc423d6061b1"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/middleware/auth.js": [
+    1015,
+    1676498110646.458,
+    "f569b9d7653f9592754325a5ebd863c1a38fc66c4b500654f8e647c50c5b5a63"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/middleware/fornSet.js": [
+    252,
+    1676667050175.041,
+    "736f5ef9d190428cba9890007fccdb138b4da15b0e8b12c9012134480eb6ed46"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/routers/tasks.js": [
+    4381,
+    1676586579018.5684,
+    "0211b75a97df077892315ae8a784a1c92dbb210f1d0bba4f52ef952f1b722991"
+  ],
+  "c:/Users/LVWFEC781/Documents/GitHub/TaskManager-App/src/routers/users.js": [
+    5701,
+    1676667212847.5764,
+    "b94faf44c658a81d426d9d7f8a133b453e02a5ccd0d317eb67ccaad3e104308f"
+  ],
+  "c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\middleware\\auth.js": [
+    1018,
+    1676994975671.2644,
+    "546a7917b68f8830d0323734f0f960b604feeb34862045b3592017e763bf815e"
+  ],
+  "c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\routers\\users.js": [
+    5685,
+    1676995176918.7822,
+    "e2896392b3a2f7ee9e7b65f0a43fa8b9dc1d8c7a0398440f88a2f073eca290b6"
+  ],
+  "c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\emails\\account.js": [
+    539,
+    1676995755258.0645,
+    "7f7a2c150ae6ac5ce9dad1802168fd1346cc9cd48657a31798b88ede4a9b37da"
+  ],
+  "c:\\Users\\LVWFEC781\\Documents\\GitHub\\TaskManager-App\\src\\index.js": [
+    1091,
+    1676996475803.409,
+    "07aa05729911e27d1fc66e5d950bbc46cd6192c6a9835c021899842de4d685b4"
+  ]
+}

@@ -43,14 +43,12 @@
     "superstruct": "^1.0.3",
     "validatorjs": "^3.22.1"
   },
-  {
-    "build": {
-      "extraResources": [
-        {
-          "from": "node_modules/.prisma/client/",
-          "to": "app/node_modules/.prisma/client/"
-        }
-      ],
-    }
+  "build": {
+    "extraResources": [
+      {
+        "from": "node_modules/.prisma/client/",
+        "to": "app/node_modules/.prisma/client/"
+      }
+    ]
   }
 }

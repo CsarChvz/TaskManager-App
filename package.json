@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "prepare && node ./src/index.js",
+    "start": "npm prepare && node ./src/index.js",
     "test": "nodemon src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon ./src/index.js",
     "prepare": "npx prisma generate"

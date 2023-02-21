@@ -32,6 +32,15 @@ const upload = multer({
 
 const fornSet = require("../middleware/fornSet");
 //    @@@ POST - End points
+user.post("/examples", async (req, res) => {
+  try {
+    console.log(req.body);
+    res.status(201).json({ message: "Example created" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 user.post("/users", async (req, res) => {
   try {
     let password = await bcrypt.hash(req.body.password, 8);
@@ -59,6 +68,7 @@ user.post("/users", async (req, res) => {
         tokens: [{ ...token }],
       },
     });
+
     res.status(201).json({ datos, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -106,7 +116,6 @@ user.post("/users/logoutAll", auth, async (req, res) => {
 user.post("/users/login", async (req, res) => {
   try {
     let user = await checkExist(req.body.email);
-    console.log(user);
     if (user) {
       let isMatch = await bcrypt.compare(req.body.password, user.password);
       if (!isMatch) {

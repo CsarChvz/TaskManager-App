@@ -11,11 +11,6 @@ let userOne = {
   email: "mike@gmail.com",
   password: "MyPass777!",
   age: 27,
-  tokens: [
-    {
-      token: jwt.sign({})
-    }
-  ]
 };
 
 beforeEach(async () => {

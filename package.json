@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm i @prisma/client && npx prisma generate && node ./src/index.js",
+    "start": "npm i @prisma/client && node ./src/index.js",
     "test": "nodemon src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon ./src/index.js"
   },

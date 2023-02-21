@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "npm i @prisma/client --save-dev && npx prisma db push && node ./src/index.js",
+    "start": "prepare && node ./src/index.js",
     "test": "nodemon src/index.js",
-    "dev": "env-cmd -f ./config/dev.env nodemon ./src/index.js"
+    "dev": "env-cmd -f ./config/dev.env nodemon ./src/index.js",
+    "prepare": "npx prisma generate"
   },
   "keywords": [],
   "author": "",

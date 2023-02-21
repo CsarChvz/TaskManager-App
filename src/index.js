@@ -5,7 +5,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const app = express();
 const multer = require("multer");
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 const useTaskRoutes = require("./routers/tasks");
 const useUserRouter = require("./routers/users");
@@ -34,5 +34,5 @@ app.use(useUserRouter);
 // @@ Routes - Endpoints
 
 app.listen(port, () => {
-  console.log("Port listen");
+  console.log("Port listen", port);
 });

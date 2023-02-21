@@ -48,7 +48,7 @@ user.post("/users", async (req, res) => {
         {
           _id: datos.id.toString(),
         },
-        "thisismynewcourse"
+        process.env.JWT_SECRET
       ),
     };
     datos = await prisma.user.update({
@@ -116,7 +116,7 @@ user.post("/users/login", async (req, res) => {
         {
           _id: user.id.toString(),
         },
-        "thisismynewcourse"
+        process.env.JWT_SECRET
       );
       let tokenUser = {
         _id: user.id.toString(),
